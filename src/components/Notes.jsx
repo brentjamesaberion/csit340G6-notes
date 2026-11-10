@@ -59,6 +59,11 @@ function Notes() {
           </button>
         </form>
       </aside>
+      {notes.length < 1 && (
+        <div className="flex h-screen items-center justify-center">
+          <p className="text-lg text-[#949494]">No notes found</p>
+        </div>
+      )}
       <section className="px-12 py-11">
         <h2 className="mb-6 text-3xl">All notes</h2>
         <ul className="grid grid-cols-3 items-start gap-5">
