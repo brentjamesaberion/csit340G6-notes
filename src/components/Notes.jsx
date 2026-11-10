@@ -2,28 +2,18 @@ import NoteCard from "./NoteCard";
 import { useState } from "react";
 
 function Notes() {
-    const [notes, setNotes] = useState([
-        {
-            id: 1,
-            title: "Review map and filter", 
-            body: "Redo the TodoMVC steps without looking at the guide."
-        },
-        {
-            id: 2,
-            title: "Prepare for the quiz",
-            body: "Practice writing one handler for many inputs."
-        }
-    ]);
+    const [notes, setNotes] = useState([]);
 
-    const handleAddNote = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        if (!e.target.title.value || !e.target.body.value) {
+            return;
+        }
         const { title, body } = e.target;
-        
-        setNotes({
-            id: notes.length + 1,
-            title: title.value,
-            body: body.value
-        });
+        setNotes([...notes, { id: crypto.randomUUID(), title: title.value, body: body.value }]);
+
+        title.value = "";
+        body.value = "";
     };
 
     return (
@@ -43,7 +33,7 @@ function Notes() {
           />
         </div>
 
-        <form onSubmit={handleAddNote} className="grid gap-3">
+        <form onSubmit={handleSubmit} className="grid gap-3">
           <p className="text-[13px] font-normal tracking-wide text-[#949494]">
             NEW NOTE
           </p>
@@ -60,6 +50,7 @@ function Notes() {
           <button
             type="submit"
             className="h-[50px] cursor-pointer bg-[#b83f45] text-[17px] font-normal text-white hover:bg-[#a33439]"
+
           >
             Add note
           </button>
